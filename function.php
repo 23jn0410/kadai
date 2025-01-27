@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // CSVファイルのパス
-    $filePath = 'contacts.csv';
+    $filePath = 'csv/contacts.csv';
 
     // CSVに保存するデータ
     $data = [
@@ -35,7 +35,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // データ行の追加
         fputcsv($file, $data);
         fclose($file);
-        echo "お問い合わせ内容を保存しました。ありがとうございます。";
+        echo '<!DOCTYPE html>
+        <html lang="ja">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>お問い合わせありがとうございます</title>
+            <style>
+                body {
+                    font-family: Arial, sans-serif;
+                    text-align: center;
+                    margin-top: 50px;
+                }
+                .message {
+                    font-size: 1.5rem;
+                    color: #333;
+                }
+            </style>
+        </head>
+        <body>
+            <div class="message">
+                <p>お問い合わせありがとうございます。</p>
+                <p>3秒後にホームページに戻ります。</p>
+            </div>
+            <script>
+                setTimeout(function() {
+                    window.location.href = "index.html"; // リダイレクト先のURLを指定
+                }, 3000); // 3秒後にリダイレクト
+            </script>
+        </body>
+        </html>';
     } else {
         echo "ファイルの書き込みに失敗しました。";
     }
